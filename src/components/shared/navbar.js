@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -23,6 +23,10 @@ const pages = [];
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isNotLoggedIn = () => location.pathname === "/";
+
   const cartData = useSelector(selectCartData);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -49,7 +53,9 @@ function Navbar() {
           <Box
             display={"flex"}
             sx={{ cursor: "pointer" }}
-            onClick={() => navigate("/")}
+            onClick={() => {
+              if (!isNotLoggedIn()) navigate("/products");
+            }}
           >
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
             <Typography
@@ -137,8 +143,8 @@ function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+          <Box sx={{ flexGrow: 0, display: isNotLoggedIn() ? "none" : "" }}>
+            <Tooltip>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="User" />
               </IconButton>
@@ -159,11 +165,21 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={() => navigate("/cart")}>
+              <MenuItem
+                onClick={() => {
+                  setAnchorElUser(null);
+                  navigate("/cart");
+                }}
+              >
                 <ShoppingCart />
                 &nbsp;&nbsp;&nbsp;Cart ({cartData?.length || 0})
               </MenuItem>
-              <MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setAnchorElUser(null);
+                  navigate("/");
+                }}
+              >
                 <Logout />
                 &nbsp;&nbsp;&nbsp;Logout
               </MenuItem>

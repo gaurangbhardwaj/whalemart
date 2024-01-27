@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -16,15 +17,11 @@ import {
   Grid,
   CircularProgress,
   Box,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
   Rating,
 } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { Add, HorizontalRule } from "@mui/icons-material";
 
-const SAMPLE_QUANTITY = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -38,9 +35,25 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(getProductDetailsData(id));
-  }, []);
+  }, [dispatch, id]);
 
   const [quantity, setQuantity] = useState(1);
+
+  const addProductToCart = () => {
+    dispatch(
+      addToCart({
+        product,
+        quantity,
+      })
+    );
+    toast.success("Product has been added to cart!", {
+      position: "top-center",
+      hideProgressBar: false,
+      closeOnClick: true,
+      theme: "dark",
+    });
+    setQuantity(1);
+  };
 
   return (
     <Container
@@ -87,35 +100,25 @@ const ProductDetail = () => {
                     value={product?.rating?.rate || 0}
                     readOnly
                   />
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
-                      Quantity
-                    </InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={quantity}
-                      label="Quantity"
-                      onChange={(e) => setQuantity(Number(e.target.value))}
+                  <Box display="flex" gap={2} alignItems="center">
+                    <Button
+                      variant="outlined"
+                      disabled={quantity <= 1}
+                      onClick={() => setQuantity((prev) => --prev)}
                     >
-                      {SAMPLE_QUANTITY.map((data) => (
-                        <MenuItem key={data} value={data}>
-                          {data}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  <Button
-                    variant="contained"
-                    onClick={() =>
-                      dispatch(
-                        addToCart({
-                          product,
-                          quantity,
-                        })
-                      )
-                    }
-                  >
+                      <HorizontalRule />
+                    </Button>
+                    <Typography variant="subtitle1" textAlign={"justify"}>
+                      {quantity}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setQuantity((prev) => ++prev)}
+                    >
+                      <Add />
+                    </Button>
+                  </Box>
+                  <Button variant="contained" onClick={addProductToCart}>
                     Add to Cart
                   </Button>
                 </Box>

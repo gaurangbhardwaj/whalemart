@@ -1,15 +1,14 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import { Container } from "@mui/material";
 
-import Navbar from "./components/shared/navbar";
+import Navbar from "./components/shared/navbar.component";
 import ErrorBoundary from "./errorBoundary";
 
 import Login from "./components/guest/login/index";
 
-const ProductList = lazy(() => import("./components/app/productList"));
-const ProductDetails = lazy(() => import("./components/app/productDetails"));
-const Cart = lazy(() => import("./components/app/cart"));
+const ProductList = lazy(() => import("./components/app/product-list/ProductList.component"));
+const ProductDetails = lazy(() => import("./components/app/product-details/ProductDetails.component"));
+const Cart = lazy(() => import("./components/app/cart/cart.component"));
 
 function App() {
   return (

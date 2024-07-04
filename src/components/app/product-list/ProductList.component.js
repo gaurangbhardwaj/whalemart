@@ -5,7 +5,7 @@ import {
   getProductsData,
 } from "src/redux/slices/product";
 import { Grid, Container, CircularProgress } from "@mui/material";
-import ProductCard from "../shared/productCard";
+import ProductCard from "../../shared/ProductCard.component";
 import { useEffect } from "react";
 
 const ProductList = () => {

@@ -17,7 +17,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import Logout from "@mui/icons-material/Logout";
 
-import { selectCartData } from "src/redux/slices/cartSlice";
+import { selectCartData } from "src/redux/slices/cart";
 
 const pages = [];
 

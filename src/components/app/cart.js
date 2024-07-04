@@ -15,7 +15,7 @@ import {
   RemoveShoppingCartSharp,
 } from "@mui/icons-material";
 
-import { selectCartData, updateQuantity } from "src/redux/slices/cartSlice";
+import { selectCartData, updateQuantity } from "src/redux/slices/cart";
 import React, { useMemo } from "react";
 
 const Cart = () => {

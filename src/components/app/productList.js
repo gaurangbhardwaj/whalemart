@@ -3,7 +3,7 @@ import {
   selectProductData,
   selectProductLoading,
   getProductsData,
-} from "src/redux/slices/productSlice";
+} from "src/redux/slices/product";
 import { Grid, Container, CircularProgress } from "@mui/material";
 import ProductCard from "../shared/productCard";
 import { useEffect } from "react";

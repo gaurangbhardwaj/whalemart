@@ -1,12 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getProductDetails } from "src/services";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const getProductDetailsData = createAsyncThunk(
-  "api/getProductDetailsData",
-  async (id) => {
-    return await getProductDetails(id);
-  }
-);
+import { getProductDetailsData } from "./ProductDetails.thunk";
 
 const productDetailsSlice = createSlice({
   name: "productDetail",
@@ -33,10 +27,5 @@ const productDetailsSlice = createSlice({
       });
   },
 });
-
-export const selectProductDetailsData = (state) => state.productDetails.data;
-export const selectProductDetailsLoading = (state) =>
-  state.productDetails.loading;
-export const selectProductDetailsError = (state) => state.productDetails.error;
 
 export default productDetailsSlice.reducer;

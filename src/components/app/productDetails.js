@@ -5,9 +5,9 @@ import {
   selectProductDetailsData,
   selectProductDetailsLoading,
   getProductDetailsData,
-} from "src/redux/slices/productDetailsSlice";
+} from "src/redux/slices/product-details";
 
-import { addToCart } from "src/redux/slices/cartSlice";
+import { addToCart } from "src/redux/slices/cart";
 import {
   Card,
   Button,
